@@ -300,7 +300,7 @@ elif selected == "Task 5 - AES":
 
     # ---------------------- ENCRYPT ----------------------
     with col1:
-        st.subheader("Encrypt")
+        st.subheader("Mã hóa")
         pt = st.text_area("Plaintext:")
 
         if st.button("Mã hóa AES"):
@@ -323,7 +323,7 @@ elif selected == "Task 5 - AES":
 
     # ---------------------- DECRYPT ----------------------
     with col2:
-        st.subheader("Decrypt")
+        st.subheader("Giải mã")
 
         ct_hex = st.text_input(
             "Ciphertext hex",
