@@ -1,20 +1,3 @@
-# ============================================
-# aes_block.py
-# ============================================
-# Chứa 2 hàm:
-#   - aes_encrypt_block(block16, round_keys)
-#   - aes_decrypt_block(block16, round_keys)
-#
-# Phụ thuộc:
-#   from aes_core import (
-#       sub_bytes, inv_sub_bytes,
-#       shift_rows, inv_shift_rows,
-#       mix_columns, inv_mix_columns,
-#       add_round_key
-#   )
-#
-# ============================================
-
 from tasks.aes_core import (
     sub_bytes, inv_sub_bytes,
     shift_rows, inv_shift_rows,
@@ -22,12 +5,7 @@ from tasks.aes_core import (
     add_round_key
 )
 
-
-
-# ---------------------------------------------------------
 #  Hàm chuyển đổi giữa bytes <-> state matrix (4×4)
-# ---------------------------------------------------------
-
 def bytes_to_state(block16: bytes):
     """
     Chuyển 16 byte thành state matrix 4×4 theo chuẩn AES.
@@ -60,10 +38,7 @@ def state_to_bytes(state):
     ])
 
 
-# ---------------------------------------------------------
 #  AES Encrypt 1 block (16 byte)
-# ---------------------------------------------------------
-
 def aes_encrypt_block(block16: bytes, round_keys):
     """
     Mã hóa AES 1 block (16 byte):
@@ -103,10 +78,7 @@ def aes_encrypt_block(block16: bytes, round_keys):
     return state_to_bytes(state)
 
 
-# ---------------------------------------------------------
 #  AES Decrypt 1 block (16 byte)
-# ---------------------------------------------------------
-
 def aes_decrypt_block(block16: bytes, round_keys):
     """
     Giải mã AES 1 block (16 byte)

@@ -1,16 +1,8 @@
-# ==========================================================
-#   LAB06 - TASK 2 - MONOALPHABETIC SUBSTITUTION CIPHER
-#   Full version for Streamlit Dashboard
-# ==========================================================
-
 import math
 import random
 from collections import Counter
 
-# ----------------------------
 # English n-gram frequencies
-# ----------------------------
-
 UNIGRAM = {
     'e': 0.127, 't': 0.091, 'a': 0.082, 'o': 0.075, 'i': 0.070,
     'n': 0.067, 's': 0.063, 'h': 0.061, 'r': 0.060, 'd': 0.043,
@@ -31,9 +23,7 @@ DEFAULT_UNI = 1e-6
 DEFAULT_BI = 1e-7
 
 
-# ==========================================================
 # SCORING FUNCTION
-# ==========================================================
 def score_text(text):
     text = text.lower()
     score = 0.0
@@ -51,9 +41,7 @@ def score_text(text):
     return score
 
 
-# ==========================================================
 # TRANSLATION FUNCTIONS
-# ==========================================================
 def build_translate_table(mapping):
     table = {i: i for i in range(256)}
 
@@ -68,9 +56,7 @@ def apply_mapping(ciphertext, table):
     return ciphertext.translate(table)
 
 
-# ==========================================================
 # INITIAL MAPPING (FREQUENCY ANALYSIS)
-# ==========================================================
 def seed_mapping(cipher):
     freq = Counter([c for c in cipher if 'a' <= c <= 'z'])
     ordered = [c for c, _ in freq.most_common()]
@@ -93,9 +79,7 @@ def seed_mapping(cipher):
     return mapping
 
 
-# ==========================================================
 # RANDOM SWAP
-# ==========================================================
 def random_swap(mapping):
     new_map = mapping.copy()
     a, b = random.sample("abcdefghijklmnopqrstuvwxyz", 2)
@@ -109,9 +93,7 @@ def random_swap(mapping):
     return new_map
 
 
-# ==========================================================
 # MAIN SOLVER (SIMULATED ANNEALING)
-# ==========================================================
 def solve_substitution(ciphertext, iterations=40000):
 
     cipher = ciphertext.lower()
@@ -146,9 +128,7 @@ def solve_substitution(ciphertext, iterations=40000):
     return best_score, best_map, best_plain
 
 
-# ==========================================================
 # DASHBOARD WRAPPER
-# ==========================================================
 def mono_decrypt(ciphertext):
     score, mapping, plaintext = solve_substitution(ciphertext)
     return score, mapping, plaintext

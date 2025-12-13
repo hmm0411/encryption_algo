@@ -1,5 +1,3 @@
-# des_tables.py
-
 # Initial Permutation
 IP = [
 58,50,42,34,26,18,10,2,

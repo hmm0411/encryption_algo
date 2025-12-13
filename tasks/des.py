@@ -1,16 +1,7 @@
-# =============================
-# tasks/des.py
-# DES for Lab06 – ECB & CBC
-# Compatible with app.py
-# =============================
-
 import os
 from .des_tables import IP, FP, E, P, SBOX, PC1, PC2, SHIFTS
 
-
-# ------------------------------
 # Bit utilities
-# ------------------------------
 def bytes_to_bits(data: bytes):
     return [(byte >> (7 - i)) & 1 for byte in data for i in range(8)]
 
@@ -34,9 +25,7 @@ def left_shift(bits, n):
     return bits[n:] + bits[:n]
 
 
-# ------------------------------
 # S-box substitution
-# ------------------------------
 def sbox_sub(bits48):
     out = []
     for box_id in range(8):
@@ -48,9 +37,7 @@ def sbox_sub(bits48):
     return out
 
 
-# ------------------------------
 # Feistel F-function
-# ------------------------------
 def F(right, subkey):
     expanded = permute(right, E)
     tmp = xor(expanded, subkey)
@@ -58,9 +45,7 @@ def F(right, subkey):
     return permute(s_out, P)
 
 
-# ------------------------------
 # Key Schedule
-# ------------------------------
 def key_schedule(key64):
     key56 = permute(key64, PC1)
     C = key56[:28]
@@ -74,9 +59,7 @@ def key_schedule(key64):
     return subs
 
 
-# ------------------------------
 # DES block encrypt / decrypt
-# ------------------------------
 def des_encrypt_block(bits64, subkeys):
     block = permute(bits64, IP)
     L, R = block[:32], block[32:]
@@ -97,9 +80,7 @@ def des_decrypt_block(bits64, subkeys):
     return permute(R + L, FP)
 
 
-# ------------------------------
 # PKCS7 Padding
-# ------------------------------
 def pkcs7_pad(data: bytes, block=8):
     pad_len = block - (len(data) % block)
     return data + bytes([pad_len]) * pad_len
@@ -110,9 +91,7 @@ def pkcs7_unpad(data: bytes):
     return data[:-pad_len]
 
 
-# ------------------------------
 # ECB Mode
-# ------------------------------
 def ECB_encrypt(plaintext: bytes, key: bytes):
     subkeys = key_schedule(bytes_to_bits(key))
     pt = pkcs7_pad(plaintext, 8)
@@ -138,9 +117,7 @@ def ECB_decrypt(cipher: bytes, key: bytes):
     return pkcs7_unpad(out)
 
 
-# ------------------------------
 # CBC Mode
-# ------------------------------
 def CBC_encrypt(plaintext: bytes, key: bytes, iv: bytes = None):
     if iv is None:
         iv = os.urandom(8)
@@ -176,9 +153,7 @@ def CBC_decrypt(cipher: bytes, key: bytes, iv: bytes):
     return pkcs7_unpad(out)
 
 
-# ------------------------------
 # PUBLIC API for app.py
-# ------------------------------
 def des_encrypt(plaintext: bytes, key: bytes, mode: str, iv=None):
     mode = mode.upper()
 

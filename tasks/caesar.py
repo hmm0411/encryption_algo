@@ -1,8 +1,3 @@
-# ===========================================
-#   LAB06 - TASK 1 - CAESAR CIPHER (FINAL)
-#   Không dùng thư viện ngoài, đúng yêu cầu đề bài
-# ===========================================
-
 def shift_char(c, k):
     """
     Dịch NGƯỢC ký tự (giải mã).
@@ -54,22 +49,19 @@ def caesar_bruteforce(ciphertext):
     return best_key, best_plaintext
 
 
-# =========================================================
-#            CHƯƠNG TRÌNH CHẠY ĐỘC LẬP (FILE I/O)
-# =========================================================
-
+# CHƯƠNG TRÌNH CHẠY ĐỘC LẬP (FILE I/O)
 def main():
     input_file = "ciphertext.txt"
     output_file = "plaintext.txt"
 
-    # ---- ĐỌC FILE INPUT ----
+    # ĐỌC FILE INPUT
     with open(input_file, "r", encoding="utf-8") as f:
         ciphertext = f.read()
 
-    # ---- GIẢI MÃ CAESAR ----
+    # GIẢI MÃ CAESAR 
     key, plaintext = caesar_bruteforce(ciphertext)
 
-    # ---- GHI FILE OUTPUT ----
+    # GHI FILE OUTPUT 
     with open(output_file, "w", encoding="utf-8") as f:
         f.write(str(key) + "\n")     # dòng 1 = khóa
         f.write(plaintext)           # dòng 2 = plaintext

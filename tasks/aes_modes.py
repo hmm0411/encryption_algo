@@ -1,25 +1,8 @@
-# ============================================
-# aes_modes.py
-# ============================================
-# Chứa các chế độ hoạt động của AES:
-#   - ECB encrypt/decrypt
-#   - CBC encrypt/decrypt
-#
-# Phụ thuộc:
-#   from aes_block import aes_encrypt_block, aes_decrypt_block
-#   from aes_key_expansion import key_expansion
-#
-# ============================================
-
 import os
 from tasks.aes_block import aes_encrypt_block, aes_decrypt_block
 from tasks.aes_key_expansion import key_expansion
 
-
-# ---------------------------------------------------------
 # Padding PKCS#7
-# ---------------------------------------------------------
-
 def pkcs7_pad(data: bytes, block_size=16) -> bytes:
     pad = block_size - (len(data) % block_size)
     return data + bytes([pad]) * pad
@@ -29,11 +12,7 @@ def pkcs7_unpad(data: bytes) -> bytes:
     pad = data[-1]
     return data[:-pad]
 
-
-# ---------------------------------------------------------
 # MODE ECB
-# ---------------------------------------------------------
-
 def aes_ecb_encrypt(plaintext: bytes, key: bytes) -> bytes:
     """
     AES ECB mode – mã hóa
@@ -65,10 +44,7 @@ def aes_ecb_decrypt(ciphertext: bytes, key: bytes) -> bytes:
     return pkcs7_unpad(plaintext)
 
 
-# ---------------------------------------------------------
 # MODE CBC
-# ---------------------------------------------------------
-
 def aes_cbc_encrypt(plaintext: bytes, key: bytes, iv: bytes = None):
     """
     AES CBC mode – mã hóa

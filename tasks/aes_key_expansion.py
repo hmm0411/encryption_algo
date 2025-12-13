@@ -1,15 +1,6 @@
-# ============================================
-# aes_key_expansion.py
-# ============================================
-# Phụ thuộc: aes_tables.py (SBOX, RCON)
-# Hỗ trợ AES-128 (16 byte), AES-192 (24 byte), AES-256 (32 byte)
-
 from tasks.aes_tables import SBOX, RCON
 
-# -------------------------------------------------
 # Các hàm xử lý Word cho Key Expansion
-# -------------------------------------------------
-
 def sub_word(word):
     """
     Áp dụng SBOX lên 4 byte trong một word.
@@ -25,11 +16,7 @@ def rot_word(word):
     """
     return word[1:] + word[:1]
 
-
-# -------------------------------------------------
 # KEY EXPANSION (HỖ TRỢ 128/192/256-bit)
-# -------------------------------------------------
-
 def key_expansion(key_bytes):
     """
     Hàm mở rộng khóa AES theo chuẩn FIPS-197.
@@ -50,7 +37,7 @@ def key_expansion(key_bytes):
     Nk = key_len // 4                 # số word trong khóa gốc
     Nr = {16:10, 24:12, 32:14}[key_len]  # số vòng
 
-    # Convert key to list of 4-byte words
+    # Convert key -> list of 4-byte words
     key_schedule = []
     for i in range(Nk):
         word = list(key_bytes[4*i : 4*(i+1)])
@@ -79,11 +66,8 @@ def key_expansion(key_bytes):
 
         i += 1
 
-    # -----------------------------------------------------------
     # Chuyển về dạng round key: mỗi round key có 4 word (16 byte)
     # round_keys[round][column][row]
-    # -----------------------------------------------------------
-
     round_keys = []
     for r in range(Nr + 1):
         rk_words = key_schedule[4*r : 4*(r+1)]   # 4 word

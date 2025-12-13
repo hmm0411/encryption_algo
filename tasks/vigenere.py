@@ -14,9 +14,7 @@ english_freq = {
     'z': 0.00074
 }
 
-# ------------------------------------------------
 # 1. Index of Coincidence
-# ------------------------------------------------
 def IC(text):
     text = [c for c in text if c in alphabet]
     N = len(text)
@@ -26,9 +24,7 @@ def IC(text):
     return sum(v * (v - 1) for v in cnt.values()) / (N * (N - 1))
 
 
-# ------------------------------------------------
 # 2. Kasiski Examination
-# ------------------------------------------------
 def kasiski(cipher):
     cipher = cipher.lower()
     sequences = {}
@@ -60,9 +56,7 @@ def kasiski(cipher):
     return gcds
 
 
-# ------------------------------------------------
 # 3. Estimate key length using Kasiski + IC
-# ------------------------------------------------
 def guess_key_len(cipher, max_len=20):
     cipher = cipher.lower()
 
@@ -86,9 +80,7 @@ def guess_key_len(cipher, max_len=20):
     return best_len
 
 
-# ------------------------------------------------
 # 4. Chi-square scoring for Caesar shift
-# ------------------------------------------------
 def chi_square(subset, shift):
     subset = [c for c in subset if c in alphabet]
     shifted = [(ord(c) - 97 - shift) % 26 for c in subset]
@@ -119,9 +111,7 @@ def best_shift(subset):
     return best_s
 
 
-# ------------------------------------------------
 # 5. Decrypt with a given key
-# ------------------------------------------------
 def decrypt(cipher, key):
     out = []
     m = len(key)
@@ -142,9 +132,7 @@ def decrypt(cipher, key):
     return ''.join(out)
 
 
-# ------------------------------------------------
 # 6. Refine key using hill-climbing
-# ------------------------------------------------
 def refine_key(cipher, key):
 
     def english_score(text):
@@ -175,9 +163,7 @@ def refine_key(cipher, key):
     return ''.join(key)
 
 
-# ------------------------------------------------
 # 7. MAIN SOLVER (for Dashboard)
-# ------------------------------------------------
 def vigenere_auto_decrypt(ciphertext):
     key_len = guess_key_len(ciphertext)
 

@@ -1,23 +1,6 @@
-# ============================================
-# aes_core.py
-# ============================================
-# Chứa các bước chính của AES round:
-# - SubBytes / InvSubBytes
-# - ShiftRows / InvShiftRows
-# - MixColumns / InvMixColumns
-# - AddRoundKey
-#
-# Phụ thuộc:
-#   from aes_tables import SBOX, INV_SBOX, xtime
-# ============================================
-
 from tasks.aes_tables import SBOX, INV_SBOX, xtime
 
-
-# ---------------------------------------------------------
 # SubBytes & InvSubBytes
-# ---------------------------------------------------------
-
 def sub_bytes(state):
     """
     Áp dụng SBOX lên toàn bộ 4x4 byte trong state.
@@ -38,11 +21,7 @@ def inv_sub_bytes(state):
             state[r][c] = INV_SBOX[state[r][c]]
     return state
 
-
-# ---------------------------------------------------------
 # ShiftRows & InvShiftRows
-# ---------------------------------------------------------
-
 def shift_rows(state):
     """
     Dịch vòng trái mỗi hàng:
@@ -67,10 +46,7 @@ def inv_shift_rows(state):
     return state
 
 
-# ---------------------------------------------------------
 # MixColumns & InvMixColumns
-# ---------------------------------------------------------
-
 def mix_single_column(col):
     """
     MixColumns cho 1 cột (4 byte)
@@ -138,11 +114,7 @@ def inv_mix_columns(state):
             state[r][c] = col[r]
     return state
 
-
-# ---------------------------------------------------------
 # AddRoundKey
-# ---------------------------------------------------------
-
 def add_round_key(state, round_key):
     """
     XOR state với round_key.

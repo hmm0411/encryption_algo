@@ -1,14 +1,3 @@
-# ============================================
-# aes.py
-# API chính cho AES để app.py gọi
-#
-# Cung cấp:
-#   aes_encrypt(plaintext, key, mode, iv=None) -> (ciphertext_hex, iv)
-#   aes_decrypt(ciphertext_hex, key, mode, iv) -> plaintext_bytes
-#
-# Hỗ trợ 2 mode: ECB, CBC
-# ============================================
-
 from tasks.aes_modes import (
     aes_ecb_encrypt,
     aes_ecb_decrypt,
@@ -16,9 +5,7 @@ from tasks.aes_modes import (
     aes_cbc_decrypt
 )
 
-# =============================
 #  AES ENCRYPT
-# =============================
 def aes_encrypt(plaintext: bytes, key: bytes, mode: str, iv=None):
     """
     plaintext: bytes
@@ -43,10 +30,7 @@ def aes_encrypt(plaintext: bytes, key: bytes, mode: str, iv=None):
     else:
         raise ValueError("AES mode must be ECB or CBC")
 
-
-# =============================
 #  AES DECRYPT
-# =============================
 def aes_decrypt(ciphertext_hex: str, key: bytes, mode: str, iv=None):
     """
     ciphertext_hex: chuỗi hex
